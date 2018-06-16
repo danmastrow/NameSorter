@@ -38,8 +38,6 @@
                 // Output processed file to file and console.
                 Console.WriteLine(processedFile);
                 FileManager.WriteFileAsync(Environment.CurrentDirectory + outputFileName, processedFile).Wait();
-
-                Console.ReadLine();
             }
             catch (Exception ex)
             {
