@@ -28,10 +28,15 @@
         /// <param name="surnamePattern">The pattern to use for the Surname.</param>
         /// <param name="seperator">The new seperator between each line.</param>
         /// <returns>A string containing all Parsed and Sorted Names.</returns>
-        public string ProcessFile(IList<string> fileContents, string givenNamePattern, string surnamePattern, string seperator)
+        public string ProcessFile(
+                    IList<string> fileContents, 
+                    string givenNamePattern, 
+                    string surnamePattern, 
+                    string seperator,
+                    StringComparer stringComparer)
         {
             var parsedNames = this.nameParser.ParseString(fileContents, givenNamePattern, surnamePattern);
-            var sortedNames = this.nameSorter.SortNames(parsedNames);
+            var sortedNames = this.nameSorter.SortNames(parsedNames, stringComparer);
             return String.Join(seperator, sortedNames);
         }
     }

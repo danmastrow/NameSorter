@@ -10,6 +10,7 @@
         private static readonly string surnameRegexPattern = "(.+)(?=\\W)";
         private static readonly string nameConcat = "\r\n";
         private static readonly string outputFileName = "/sorted-names-list.txt";
+        private static readonly StringComparer stringComparer = StringComparer.InvariantCultureIgnoreCase;
         
         /// <summary>The main entry point for the program.</summary>
         /// <param name="args">The array of arguments passed to the program.</param>
@@ -31,7 +32,8 @@
                             fileContents, 
                             givenNameRegexPattern, 
                             surnameRegexPattern, 
-                            nameConcat);
+                            nameConcat,
+                            stringComparer);
                 
                 // Output processed file to file and console.
                 Console.WriteLine(processedFile);

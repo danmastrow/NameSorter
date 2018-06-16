@@ -6,20 +6,22 @@ namespace NameSorter
 {
     public class NameSorter : INameSorter
     {
-        // TODO: Make this more flexible, not hardcoded rules.
-        public IList<IName> SortNames(IList<IName> unsorted)
+        /// <summary>Sorts the list of Names by Surname then by GivenNames.</summary>
+        /// <param name="unsortedNames">List of unsorted Names.</param>
+        /// <param name="stringComparer">The specific case and string culture comparison rules.</param>
+        /// <returns>List of sorted name</returns>
+        public IList<IName> SortNames(IList<IName> unsortedNames, StringComparer stringComparer)
         {
-            if (unsorted == null || !unsorted.Any())
-            {
-                throw new Exception();
-            }
+            // Validate that the unsorted list is not null and contains elements.
+            if (unsortedNames == null || !unsortedNames.Any())
+                throw new ArgumentNullException("unsortedNames");
+            
+            // If there is only one element in the list, no sorting is required.
+            if (unsortedNames.Count <= 1)
+                return unsortedNames;
 
-            if (unsorted.Count <= 1)
-                return unsorted;
-
-            return unsorted.OrderBy(n => n.Surname, StringComparer.InvariantCultureIgnoreCase)
-                           .ThenBy(n => n.GivenNames, StringComparer.InvariantCultureIgnoreCase).ToList();
+            return unsortedNames.OrderBy(n => n.Surname, stringComparer)
+                                .ThenBy(n => n.GivenNames, stringComparer).ToList();
         }
-
     }
 }
