@@ -2,9 +2,9 @@ namespace NameSorter.Tests
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Xunit;
 
+    /// <summary>Tests for the NameSorter Class</summary>
     public class NameSorterTests
     {
         private static readonly string givenNameRegexPattern = "\\s(\\w+)$";
@@ -12,7 +12,9 @@ namespace NameSorter.Tests
         private static readonly string surnameRegexPattern = "(.+)(?=\\W)";
         private static readonly StringComparer stringComparer = StringComparer.InvariantCultureIgnoreCase;
 
-        public static IEnumerable<object[]> TestUnsortedDataAndExpectedOutcome()
+        /// <summary>Sets up the test sort data.</summary>
+        /// <returns>Unsorted data and Expected Sorted Result.</returns>
+        public static IEnumerable<object[]> SetupTestSortData()
         {
             yield return new object[]
             {
@@ -57,19 +59,22 @@ namespace NameSorter.Tests
             };
         }
 
+        /// <summary>Tests the name sorter sorts correctly.</summary>
+        /// <param name="unSortedNames">The unsorted names.</param>
+        /// <param name="expectedResult">The expected result.</param>
         [Theory]
-        [MemberData(nameof(TestUnsortedDataAndExpectedOutcome))]
-        public void NameSorterTest(string[] unSortedNames, string[] expectedResult)
+        [MemberData(nameof(SetupTestSortData))]
+        public void TestNameSorterSortsCorrectly(string[] unsortedNames, string[] expectedResult)
         {
             // Quick check to make sure that the test is valid (unsorted and expected result are same length)
-            Assert.Equal(unSortedNames.Length, expectedResult.Length);
+            Assert.Equal(unsortedNames.Length, expectedResult.Length);
 
             // Arrange
             var nameParser = new NameParser(givenNameRegexPattern, surnameRegexPattern);
             var nameSorter = new NameSorter();
 
             // Act
-            IList<IName> names = nameParser.ParseString(unSortedNames);
+            IList<IName> names = nameParser.ParseString(unsortedNames);
             string[] sortedNames = String.Join(nameConcat, nameSorter.SortNames(names, stringComparer)).Split(nameConcat);
 
             // Assert

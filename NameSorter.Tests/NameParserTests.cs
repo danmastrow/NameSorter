@@ -27,21 +27,10 @@
             };
         }
 
-
-
         [Fact]
         public void NameParserTest()
         {
-            // Arrange
-            
-            //var nameParser = new NameParser();
-
-            // Act
-            //var parsedString = nameParser.ParseString(testFileContents.Result, nameSeperator, givenNameRegexPattern, surnameRegexPattern);
-
-            // Assert
             // TODO:
-
         }
     }
 }

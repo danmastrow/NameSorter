@@ -1,36 +1,55 @@
 ﻿namespace NameSorter.Tests
 {
-    using System.Collections.Generic;
     using Xunit;
 
     public class FileMangerTests
     {
-        //[Fact]
-        //public void FileManagerValidTest()
-        //{
-        //    // Arrange
-        //    var filePath = testFile1Unsorted;
+        /// <summary>Tests the read null file path exception.</summary>
+        [Fact]
+        public void TestReadNullFilePathException()
+        {
+            // Arrange
+            string filePath = null;
 
-        //    // Act
-        //    var exception = Record.ExceptionAsync(() => FileManager.ReadFileAsync(filePath));
+            // Act
+            var readException = Record.ExceptionAsync(() => FileManager.ReadFileAsync(filePath));
 
-        //    // Assert
-        //    Assert.Null(exception);
-        //}
 
-        //[Theory]
-        //[A]
-        //public void FileManagerExceptionHandling()
-        //{
-        //    // Arrange
-        //    string filePath = null;
+            // Assert
+            Assert.NotNull(readException);
 
-        //    // Act
-        //    var exception = Record.ExceptionAsync(() => FileManager.ReadFileAsync(filePath));
+            Assert.Equal("A valid file path must be provided.", readException.Result.Message);
+        }
 
-        //    // Assert
-        //    Assert.NotNull(exception);
-        //    Assert.Equal("A valid file path must be provided.", exception.Result.Message);
-        //}
+        /// <summary>Tests the write null file path exception.</summary>
+        [Fact]
+        public void TestWriteNullFilePathException()
+        {
+            // Arrange
+            string filePath = null;
+
+            // Act
+            var writeException = Record.ExceptionAsync(() => FileManager.WriteFileAsync(filePath, ""));
+
+            // Assert
+            Assert.NotNull(writeException);
+            Assert.Equal("A valid file path must be provided.", writeException.Result.Message);
+        }
+
+        /// <summary>Tests the Null the file contents exception.</summary>
+        [Fact]
+        public void TestWriteNullFileContentsException()
+        {
+            // Arrange
+            string filePath = "C:/";
+            string fileContents = null;
+
+            // Act
+            var writeException = Record.ExceptionAsync(() => FileManager.WriteFileAsync(filePath, fileContents));
+
+            // Assert
+            Assert.NotNull(writeException);
+            Assert.Equal("The contents of the file to write must be specified.", writeException.Result.Message);
+        }
     }
 }
