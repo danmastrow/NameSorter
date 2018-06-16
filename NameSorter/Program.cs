@@ -1,30 +1,30 @@
 ﻿namespace NameSorter
 {
     using System;
-    using System.Linq;
 
-    /// <summary>
-    /// The Program.
-    /// </summary>
+    /// <summary>The Program logic and argument handling.</summary>
     public class Program
     {
+        private static readonly string givenNameRegexPattern = "\\s(\\w+)$";
+        private static readonly string nameSeperator = " ";
+        private static readonly string nameConcat = "\r\n";
+        private static readonly string outputFileName = "/sorted-names-list.txt";
+        private static readonly string surnameRegexPattern = "(.+)(?=\\W)";
+
         /// <summary>The main entry point for the program.</summary>
         /// <param name="args">The array of arguments passed to the program.</param>
         public static void Main(string[] args)
         {
             try
             {
-                // Read and parse the input file (expected to be the first argument)
-                var file = FileManager.ReadFile(args[0]);
-                var parsedNames = new NameParser().ParseFile(file.Result.ToArray(), "^(\\w+\\s+){3}", "\\s(\\w+)$");
+                var file = FileManager.ReadFileAsync(args[0]);
+                var nameProcessor = new NameProcessor(new NameSorter(), new NameParser());
 
-                // Sort the list and combine into a single string seperated by a newline.
-                var sorted = Sorter.SortNames(parsedNames.ToList());
-                var sortedContents = String.Join("\r\n", sorted);
-                Console.WriteLine(sortedContents);
+                var processedFile = nameProcessor.ProcessFile(file.Result, nameSeperator, givenNameRegexPattern, surnameRegexPattern);
+                string processedFileContents = String.Join(nameConcat, processedFile);
 
-                // Write the contents to the file.
-                FileManager.WriteFile(Environment.CurrentDirectory + "/sorted-names-list.txt", sortedContents);
+                Console.WriteLine(processedFileContents);
+                FileManager.WriteFileAsync(Environment.CurrentDirectory + outputFileName, processedFileContents).Wait();
 
                 Console.ReadLine();
             }
@@ -34,7 +34,5 @@
                 throw ex;
             }
         }
-
-       
     }
 }
