@@ -9,11 +9,10 @@
         private readonly INameSorter nameSorter;
         private readonly INameParser nameParser;
 
-        /// <summary>
-        /// Instantiates a NameProcessor with a NameSorter and NameParser.
-        /// </summary>
-        /// <param name="nameSorter">The interface for a sorter of Names.</param>
-        /// <param name="nameParser">The interface of a Parser for Names.</param>
+        /// <summary>Constructor for the NameProcessor.</summary>
+        /// <param name="nameSorter">The NameSorter interface.</param>
+        /// <param name="nameParser">The NameParser interface.</param>
+        /// <exception cref="ArgumentNullException">Thrown if nameSorter or nameParser are null.</exception>
         public NameProcessor(INameSorter nameSorter, INameParser nameParser)
         {
             this.nameSorter = nameSorter ?? throw new ArgumentNullException("nameSorter");
@@ -24,18 +23,12 @@
         /// Parses and sorts a files contents and processes it into a single string.
         /// </summary>
         /// <param name="fileContents">The contents of a file.</param>
-        /// <param name="givenNamePattern">The pattern to use for the GivenNames.</param>
-        /// <param name="surnamePattern">The pattern to use for the Surname.</param>
         /// <param name="seperator">The new seperator between each line.</param>
+        /// <param name="stringComparer">The string comparer.</param>
         /// <returns>A string containing all Parsed and Sorted Names.</returns>
-        public string ProcessFile(
-                    IList<string> fileContents, 
-                    string givenNamePattern, 
-                    string surnamePattern, 
-                    string seperator,
-                    StringComparer stringComparer)
+        public string ProcessFile(IList<string> fileContents, string seperator, StringComparer stringComparer)
         {
-            var parsedNames = this.nameParser.ParseString(fileContents, givenNamePattern, surnamePattern);
+            var parsedNames = this.nameParser.ParseString(fileContents);
             var sortedNames = this.nameSorter.SortNames(parsedNames, stringComparer);
             return String.Join(seperator, sortedNames);
         }

@@ -2,27 +2,36 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text.RegularExpressions;
 
+    /// <summary>Parser for parsing Names.</summary>
+    /// <seealso cref="NameSorter.INameParser" />
     public class NameParser : INameParser
     {
-        /// <summary>
-        /// Parses a list of strings into Names based upon the patterns provided.
-        /// </summary>
-        /// <param name="inputs"></param>
-        /// <param name="givenNamePattern"></param>
-        /// <param name="surnamePattern"></param>
-        /// <returns>A list of the Parsed Names</returns>
-        public IList<IName> ParseString(IList<string> inputs, string givenNamePattern, string surnamePattern)
+        private readonly string givenNameRegexPattern, surnameRegexPattern;
+
+        /// <summary>Constructor for the NameParser class.</summary>
+        /// <param name="givenNameRegexPattern">The</param>
+        /// <param name="surnameRegexPattern">The surname regex pattern.</param>
+        /// <exception cref="ArgumentNullException">GivenName and Surname regex patterns must not be null.</exception>
+        public NameParser(string givenNameRegexPattern, string surnameRegexPattern)
         {
-            IList<IName> result = new List<IName>();
+            this.givenNameRegexPattern = givenNameRegexPattern ?? throw new ArgumentNullException("givenNameRegexPattern");
+            this.surnameRegexPattern = surnameRegexPattern ?? throw new ArgumentNullException("surnameRegexPattern");
+        }
+
+        /// <summary>Parses a list of strings into Names.</summary>
+        /// <param name="inputs">List of strings to Parse into Names.</param>
+        /// <returns>A list of the Parsed Names</returns>
+        public IList<IName> ParseString(IList<string> inputs)
+        {
+            var result = new List<IName>();
 
             foreach (string input in inputs)
             {
                 // Match the Given Names and Surnames to their respective Regex Patterns
-                string givenNames = Regex.Replace(input, givenNamePattern, String.Empty).Trim();
-                string surname = Regex.Replace(input, surnamePattern, String.Empty).Trim();
+                string givenNames = Regex.Replace(input, givenNameRegexPattern, String.Empty).Trim();
+                string surname = Regex.Replace(input, surnameRegexPattern, String.Empty).Trim();
 
                 result.Add(new Name()
                 {

@@ -9,7 +9,7 @@
         /// <summary>Sorts the list of names.</summary>
         /// <param name="unsorted">The list of unsorted names.</param>
         /// <param name="stringComparer">The specific case and string culture comparison rules.</param>
-        /// <returns></returns>
+        /// <returns>Sorted list of names</returns>
         IList<IName> SortNames(IList<IName> unsorted, StringComparer stringComparer);
     }
-}   
+}

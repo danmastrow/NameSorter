@@ -3,15 +3,11 @@
     using System.Collections.Generic;
 
     /// <summary>The interface of a parser for names.</summary>
-    public interface INameParser 
+    public interface INameParser
     {
-        /// <summary>
-        /// Parses a list of input strings into a IList of Names.
-        /// </summary>
+        /// <summary>Parses a list of input strings into Names.</summary>
         /// <param name="inputs">List of input strings.</param>
-        /// <param name="givenNamePattern">The givenName pattern to parse on.</param>
-        /// <param name="surnamePattern">The surname pattern to parse on.</param>
         /// <returns>A list of parsed names.</returns>
-        IList<IName> ParseString(IList<string> inputs, string givenNamePattern, string surnamePattern);
+        IList<IName> ParseString(IList<string> inputs);
     }
 }
