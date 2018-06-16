@@ -18,7 +18,7 @@ namespace NameSorter
                 return unsorted;
 
             return unsorted.OrderBy(n => n.Surname, StringComparer.InvariantCultureIgnoreCase)
-                           .ThenBy(n => n.GivenNames).ToList();
+                           .ThenBy(n => n.GivenNames, StringComparer.InvariantCultureIgnoreCase).ToList();
         }
 
     }

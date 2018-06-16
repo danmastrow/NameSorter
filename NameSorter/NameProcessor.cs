@@ -16,15 +16,23 @@
         /// <param name="nameParser">The interface of a Parser for Names.</param>
         public NameProcessor(INameSorter nameSorter, INameParser nameParser)
         {
-            this.nameSorter = nameSorter ?? throw new Exception();
-            this.nameParser = nameParser ?? throw new Exception();
+            this.nameSorter = nameSorter ?? throw new ArgumentNullException("nameSorter");
+            this.nameParser = nameParser ?? throw new ArgumentNullException("nameParser");
         }
 
-        public IList<IName> ProcessFile(IList<string> file, string seperator, string givenNamePattern, string surnamePattern)
+        /// <summary>
+        /// Parses and sorts a files contents and processes it into a single string.
+        /// </summary>
+        /// <param name="fileContents">The contents of a file.</param>
+        /// <param name="givenNamePattern">The pattern to use for the GivenNames.</param>
+        /// <param name="surnamePattern">The pattern to use for the Surname.</param>
+        /// <param name="seperator">The new seperator between each line.</param>
+        /// <returns>A string containing all Parsed and Sorted Names.</returns>
+        public string ProcessFile(IList<string> fileContents, string givenNamePattern, string surnamePattern, string seperator)
         {
-            var parsedNames = this.nameParser.ParseString(file, seperator, givenNamePattern, surnamePattern);
+            var parsedNames = this.nameParser.ParseString(fileContents, givenNamePattern, surnamePattern);
             var sortedNames = this.nameSorter.SortNames(parsedNames);
-            return sortedNames;
+            return String.Join(seperator, sortedNames);
         }
     }
 }
