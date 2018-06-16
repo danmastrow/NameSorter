@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    /// <summary>Represents a Name with a single Surname and potentially multiple Given Names.</summary>
+    /// <summary>The interface for a Name with a single Surname and potentially multiple Given Names.</summary>
     public interface IName
     {
         /// <summary>The Given Names for the Name.</summary>
