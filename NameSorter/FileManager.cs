@@ -20,6 +20,12 @@
                 throw new ArgumentNullException(filePath, message);
             }
 
+            if (!File.Exists(filePath))
+            {
+                var message = "The file does not exist.";
+                throw new FileNotFoundException(message, filePath);
+            }
+
             return await File.ReadAllLinesAsync(filePath);
         }
 

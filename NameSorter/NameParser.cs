@@ -25,7 +25,7 @@
         /// <returns>A list of the Parsed Names</returns>
         public IList<IName> ParseString(IList<string> inputs)
         {
-            var result = new List<IName>();
+            IList<IName> result = new List<IName>();
 
             foreach (string input in inputs)
             {

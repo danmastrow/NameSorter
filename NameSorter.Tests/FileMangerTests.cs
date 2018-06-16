@@ -21,6 +21,23 @@
             Assert.Equal("A valid file path must be provided.", readException.Result.Message);
         }
 
+        /// <summary>Tests the ReadFile doesnt exist exception.</summary>
+        [Fact]
+        public void TestReadFileDoesntExistFilePathException()
+        {
+            // Arrange
+            string filePath = "C:";
+
+            // Act
+            var readException = Record.ExceptionAsync(() => FileManager.ReadFileAsync(filePath));
+
+
+            // Assert
+            Assert.NotNull(readException);
+
+            Assert.Equal("The file does not exist.", readException.Result.Message);
+        }
+
         /// <summary>Tests the write null file path exception.</summary>
         [Fact]
         public void TestWriteNullFilePathException()

@@ -1,4 +1,6 @@
-﻿namespace NameSorter
+﻿using System;
+
+namespace NameSorter
 {
     /// <summary>
     /// Represents a Name with a single Surname and potentially multiple Given Names.
@@ -26,5 +28,16 @@
         {
             return $"{string.Join(" ", GivenNames)} {Surname}";
         }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj is Name)
+            {
+                var other = obj as Name;
+                return this.GivenNames == other.GivenNames && this.Surname == other.Surname;
+            }
+            return false;
+        }
+
     }
 }

@@ -22,7 +22,7 @@ namespace NameSorter.Tests
                 new object[]
                 {
                     "Robert DeNiro",
-                    "Jack Nicholson" ,
+                    "Jack First AAAA" ,
                     "Marlon Brando",
                     "Tom Hanks",
                     "Brad C Pitt",
@@ -40,6 +40,7 @@ namespace NameSorter.Tests
                 // The expected outcome after sorting.
                 new object[]
                 {
+                    "Jack First AAAA",
                     "Humphrey Bogart",
                     "Marlon Brando",
                     "Marlon Brandon",
@@ -48,7 +49,6 @@ namespace NameSorter.Tests
                     "Leonardo DiCaprio",
                     "Leonardo DiCaprion",
                     "Tom Hanks",
-                    "Jack Nicholson" ,
                     "Laurence Olivier",
                     "Al Pacino",
                     "Brad Pitt",
@@ -60,11 +60,11 @@ namespace NameSorter.Tests
         }
 
         /// <summary>Tests the name sorter sorts correctly.</summary>
-        /// <param name="unSortedNames">The unsorted names.</param>
+        /// <param name="unsortedNames">The unsorted names.</param>
         /// <param name="expectedResult">The expected result.</param>
         [Theory]
         [MemberData(nameof(SetupTestSortData))]
-        public void TestNameSorterSortsCorrectly(string[] unsortedNames, string[] expectedResult)
+        public void TestValidNameSort(string[] unsortedNames, string[] expectedResult)
         {
             // Quick check to make sure that the test is valid (unsorted and expected result are same length)
             Assert.Equal(unsortedNames.Length, expectedResult.Length);
