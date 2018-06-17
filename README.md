@@ -1,6 +1,6 @@
 # NameSorter
 
-Built using Travis.
+Travis:
 [![Build Status](https://travis-ci.org/danmastrow/NameSorter.svg?branch=master)](https://travis-ci.org/danmastrow/NameSorter)
 
 ## Requirements
@@ -29,7 +29,6 @@ The unsorted list:
     Laurence Olivier
     Brad Pitt
     Brad A Pitt
-
 ```
 Will become:
 ```
