@@ -1,5 +1,6 @@
 # NameSorter
 
+Built using Travis.
 [![Build Status](https://travis-ci.org/danmastrow/NameSorter.svg?branch=master)](https://travis-ci.org/danmastrow/NameSorter)
 
 ## Requirements
@@ -60,7 +61,8 @@ Will become:
   
 ## Configuration
 - At the moment a Regex Pattern is being used to determine what is mapped as a GivenName and what is mapped as a Surname to the Name class.
-To modify this simply change the givenNameregexPattern in the Program.Main entry point. Ideally this would be in a config file or database if it was continually changing.
+To modify this simply change the givenNameRegexPattern and surnameRegexPattern in the Program.Main entry point. 
+Ideally this would be in a config file or database if it was continually changing in a longer project.
 
 ## Testing
 - The tests are written using the Xunit Test Framework.
